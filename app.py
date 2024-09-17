@@ -1,12 +1,10 @@
-import glob
 import json
-import os
 import zipfile
 import cv2
 import time
 
-from flask import Flask, Response, jsonify, request, abort,  stream_with_context, make_response
-from flask_cors import CORS  # Import CORS
+from flask import  Response, abort,  stream_with_context, make_response
+
 from download_service import DownloadService
 from send_mails import EmailService
 
@@ -14,8 +12,7 @@ import matplotlib.colors as mcolors
 from requests.exceptions import ChunkedEncodingError
 from flask import Flask, jsonify, request
 import requests
-from PIL import Image
-import numpy as np
+
 from io import BytesIO
 from datetime import datetime, timedelta
 from flask_cors import CORS
@@ -638,8 +635,8 @@ def process_savi():
 
 # Token management
 TOKEN_URL = 'https://services.sentinel-hub.com/auth/realms/main/protocol/openid-connect/token'
-CLIENT_ID = 'f3c6ad1d-d127-4fea-a630-2506b44545ce'
-CLIENT_SECRET = 'rYSWPIU5FGjcZNAdv4Z0PYjLYhW9nj3Y'
+CLIENT_ID_sen = 'ee3de54d-5e36-4d84-a8de-00b3f66e6361'
+CLIENT_SECRET = 'KPFQ4AgwQEKLOtL4K5zu58Z1kE766Y9K'
 token_expiry = datetime.now()  # Initially set to the current time
 
 # Define a global variable to store the token
@@ -648,7 +645,7 @@ oauth_token = None
 def get_access_token():
     global token_expiry, oauth_token
 
-    client = BackendApplicationClient(client_id=CLIENT_ID)
+    client = BackendApplicationClient(client_id=CLIENT_ID_sen)
     oauth = OAuth2Session(client=client)
 
     # If the token is expired or not set
